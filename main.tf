@@ -3,13 +3,17 @@
 
 //--------------------------------------------------------------------
 // Workspace Data
-data "terraform_remote_state" "darnold_hashicorp_dev_network" {
+data "terraform_remote_state" "network" {
   backend = "atlas"
 
   config {
     address = "app.terraform.io"
-    name    = "Darnold-Hashicorp/DevNetwork"
+    name    = "${var.organization}/${var.workspace}"
   }
+}
+
+provider "aws" {
+  region = "${data.terraform_remote_state.network.region}"
 }
 
 //--------------------------------------------------------------------
@@ -20,7 +24,7 @@ module "consul_cluster" {
   key_name        = "${var.consul_cluster_key_name}"
   servers         = "${var.consul_cluster_servers}"
   ssh_private_key = "${var.consul_cluster_ssh_private_key}"
-  subnets         = "${data.terraform_remote_state.darnold_hashicorp_dev_network.private_subnet}"
+  subnets         = "${data.terraform_remote_state.network.private_subnet}"
   tagName         = "${var.consul_cluster_tagName}"
-  vpc_id          = "${data.terraform_remote_state.darnold_hashicorp_dev_network.vpc_id}"
+  vpc_id          = "${data.terraform_remote_state.network.vpc_id}"
 }
