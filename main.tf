@@ -22,7 +22,7 @@ module "consul_cluster" {
   key_name        = "${var.consul_cluster_key_name}"
   servers         = "${var.consul_cluster_servers}"
   ssh_private_key = "${var.consul_cluster_ssh_private_key}"
-  subnets         = "${data.terraform_remote_state.network.private_subnet}"
+  subnet         = "${data.terraform_remote_state.network.private_subnet}"
   tagName         = "${var.consul_cluster_tagName}"
   vpc_id          = "${data.terraform_remote_state.network.vpc_id}"
 }
