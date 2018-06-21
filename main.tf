@@ -18,7 +18,7 @@ provider "aws" {
 // Modules
 module "consul_cluster" {
   source          = "app.terraform.io/Darnold-Hashicorp/consul-cluster/aws"
-  version         = "1.0.4"
+  version         = "1.0.5"
   key_name        = "${var.consul_cluster_key_name}"
   servers         = "${var.consul_cluster_servers}"
   ssh_private_key = "${var.consul_cluster_ssh_private_key}"
