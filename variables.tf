@@ -14,5 +14,3 @@ variable "host_name" {
 }
 
 variable "domain" {}
-
-variable "consul_download_url" {}
