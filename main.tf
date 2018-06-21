@@ -2,13 +2,11 @@
 // Variables
 
 //--------------------------------------------------------------------
-// Workspace Data
 data "terraform_remote_state" "network" {
   backend = "atlas"
 
   config {
-    address = "app.terraform.io"
-    name    = "${var.organization}/${var.workspace}"
+    name = "${var.organization}/${var.workspace}"
   }
 }
 
