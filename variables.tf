@@ -5,7 +5,7 @@ variable "consul_cluster_tagName" {}
 variable "organization" {}
 variable "workspace" {}
 
-k variable "host_name" {
+variable "host_name" {
   default = "consul"
 }
 
