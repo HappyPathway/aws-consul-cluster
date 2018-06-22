@@ -1,6 +1,15 @@
 //--------------------------------------------------------------------
 // Variables
 
+variable "resource_tags" {
+  type = "map"
+
+  default = {
+    Owner = "Darnold"
+    TTL   = 48
+  }
+}
+
 //--------------------------------------------------------------------
 data "terraform_remote_state" "network" {
   backend = "atlas"
@@ -27,4 +36,5 @@ module "consul_cluster" {
   vpc_id              = "${data.terraform_remote_state.network.vpc_id}"
   consul_config       = "${path.root}/consul_config.json"
   consul_download_url = "${var.consul_download_url}"
+  resource_tags       = "${var.resource_tags}"
 }
