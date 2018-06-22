@@ -39,7 +39,7 @@ resource "aws_elb" "consul" {
     healthy_threshold   = "${var.service_healthcheck_healthy_threshold}"
     unhealthy_threshold = "${var.service_healthcheck_unhealthy_threshold}"
     timeout             = "${var.service_healthcheck_timeout}"
-    target              = "HTTP:8500/ui"
+    target              = "TCP:8500"
     interval            = "${var.service_healthcheck_interval}"
   }
 
