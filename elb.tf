@@ -26,6 +26,7 @@ resource "aws_elb" "consul" {
   subnets         = ["${data.terraform_remote_state.network.private_subnet}"]
   security_groups = ["${module.consul_cluster.security_group}"]
   internal        = false
+  instances       = "${module.consul_cluster.instances}"
 
   listener {
     instance_port     = "8500"
