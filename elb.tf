@@ -1,6 +1,6 @@
 resource "aws_security_group" "consul" {
-  vpc_id = "${var.vpc_id}"
-  name   = "${var.service_name}-elb"
+  vpc_id = "${data.terraform_remote_state.network.vpc_id}"
+  name   = "${lookup(var.resource_tags, "ClusterName")}-elb"
 
   ingress {
     from_port   = "8500"
@@ -54,7 +54,7 @@ resource "aws_elb" "consul" {
 
 resource "aws_lb_cookie_stickiness_policy" "cookie_stickness" {
   name                     = "${lookup(var.resource_tags, "ClusterName")}-cookiestickness"
-  load_balancer            = "${aws_elb.service.id}"
+  load_balancer            = "${aws_elb.consul.id}"
   lb_port                  = "8500"
   cookie_expiration_period = 600
 }
