@@ -5,7 +5,7 @@ variable "resource_tags" {
   type = "map"
 
   default = {
-    Owner       = "Darnold"
+    Owner       = "darnold"
     TTL         = 48
     ClusterName = "consul-demos"
   }

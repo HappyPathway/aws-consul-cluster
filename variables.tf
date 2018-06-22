@@ -5,15 +5,9 @@ variable "consul_cluster_tagName" {}
 variable "organization" {}
 variable "workspace" {}
 
-variable "set_dns" {
-  default = false
-}
-
-variable "host_name" {
+k variable "host_name" {
   default = "consul"
 }
-
-variable "domain" {}
 
 variable "consul_download_url" {}
 
