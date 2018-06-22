@@ -24,7 +24,7 @@ resource "aws_security_group" "consul" {
 resource "aws_elb" "consul" {
   name            = "${lookup(var.resource_tags, "ClusterName")}"
   subnets         = ["${data.terraform_remote_state.network.private_subnet}"]
-  security_groups = ["${module.consul_cluster.security_group}"]
+  security_groups = ["${module.consul_cluster.security_group}", "${aws_security_group.consul.id}"]
   internal        = false
   instances       = ["${module.consul_cluster.instances}"]
 
