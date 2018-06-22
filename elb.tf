@@ -21,6 +21,24 @@ resource "aws_security_group" "consul" {
   }
 }
 
+resource "aws_security_group_rule" "consul_traffic_from_elb_to_cluster" {
+  type                     = "ingress"
+  from_port                = 8500
+  to_port                  = 8500
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.consul.id}"
+  source_security_group_id = "${module.consul_cluster.security_group}"
+}
+
+resource "aws_security_group_rule" "consul_traffic_from_cluster_to_elb" {
+  type                     = "ingress"
+  from_port                = 8500
+  to_port                  = 8500
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.consul.id}"
+  security_group_id        = "${module.consul_cluster.security_group}"
+}
+
 resource "aws_elb" "consul" {
   name            = "${lookup(var.resource_tags, "ClusterName")}"
   subnets         = ["${data.terraform_remote_state.network.private_subnet}"]
@@ -48,9 +66,7 @@ resource "aws_elb" "consul" {
   connection_draining         = "${var.connection_draining}"
   connection_draining_timeout = "${var.connection_draining_timeout}"
 
-  tags {
-    Name = "${lookup(var.resource_tags, "ClusterName")}-consul"
-  }
+  tags = "${merge(map("Name", "${lookup(var.resource_tags, "ClusterName")}-consul"), var.resource_tags)}"
 }
 
 resource "aws_lb_cookie_stickiness_policy" "cookie_stickness" {
