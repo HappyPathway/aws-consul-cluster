@@ -19,13 +19,9 @@ variable "domain" {
   default = "this-demo.rocks"
 }
 
-variable "service_name" {}
-
 variable "service_port" {
   default = 80
 }
-
-variable "service_healthcheck" {}
 
 variable "set_dns" {
   default = true
