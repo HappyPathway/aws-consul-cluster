@@ -43,4 +43,5 @@ module "consul_cluster" {
   consul_download_url = "${var.consul_download_url}"
   resource_tags       = "${var.resource_tags}"
   availability_zone   = "${data.aws_subnet.selected.availability_zone}"
+  env                 = "${var.env}"
 }
