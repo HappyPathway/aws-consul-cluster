@@ -24,6 +24,10 @@ provider "aws" {
   region = "${data.terraform_remote_state.network.region}"
 }
 
+data "aws_subnet" "selected" {
+  id = "${data.terraform_remote_state.network.public_subnet}"
+}
+
 //--------------------------------------------------------------------
 // Modules
 module "consul_cluster" {
@@ -38,4 +42,5 @@ module "consul_cluster" {
   consul_config       = "${path.root}/consul_config.json"
   consul_download_url = "${var.consul_download_url}"
   resource_tags       = "${var.resource_tags}"
+  availability_zone   = "${data.aws_subnet.selected.availability_zone}"
 }
