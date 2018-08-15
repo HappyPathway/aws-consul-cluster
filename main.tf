@@ -51,7 +51,7 @@ module "consul_cluster" {
   servers           = "${var.consul_cluster_servers}"
   subnet            = "${data.terraform_remote_state.network.public_subnet}"
   vpc_id            = "${data.terraform_remote_state.network.vpc_id}"
-  resource_tags     = "${locals.resource_tags}"
+  resource_tags     = "${local.resource_tags}"
   availability_zone = "${data.aws_subnet.selected.availability_zone}"
   env               = "${var.env}"
 }
