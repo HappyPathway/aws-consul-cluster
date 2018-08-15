@@ -1,13 +1,27 @@
 //--------------------------------------------------------------------
 // Variables
 
-variable "resource_tags" {
-  type = "map"
+variable "owner" {
+  type = "string"
+  description = "Owner of AWS Resources"
+}
 
-  default = {
-    Owner       = "darnold"
-    TTL         = -1
-    ClusterName = "consul-demos"
+variable "ttl" {
+    type = "string"
+    description= "TTL of AWS Resources"
+}
+
+variable "cluster_name" {
+  description = "Name of Consul Clusrer"
+  type = "string"
+}
+
+
+locals {
+  resource_tags = {
+    Owner       = "${var.owner}"
+    TTL         = "${var.ttl}"
+    ClusterName = "${var.cluster_name}"
   }
 }
 
@@ -37,7 +51,7 @@ module "consul_cluster" {
   servers           = "${var.consul_cluster_servers}"
   subnet            = "${data.terraform_remote_state.network.public_subnet}"
   vpc_id            = "${data.terraform_remote_state.network.vpc_id}"
-  resource_tags     = "${var.resource_tags}"
+  resource_tags     = "${locals.resource_tags}"
   availability_zone = "${data.aws_subnet.selected.availability_zone}"
   env               = "${var.env}"
 }
