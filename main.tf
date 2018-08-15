@@ -7,7 +7,7 @@ variable "resource_tags" {
   default = {
     Owner       = "darnold"
     TTL         = -1
-    ClusterName = "consul-demos"
+    ClusterName = "darnold-consul-nvc"
   }
 }
 
