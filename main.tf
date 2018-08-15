@@ -45,7 +45,7 @@ data "aws_subnet" "selected" {
 //--------------------------------------------------------------------
 // Modules
 module "consul_cluster" {
-  source            = "app.terraform.io/Darnold-Hashicorp/consul-cluster/aws"
+  source            = "app.terraform.io/Darnold-NVC/consul-cluster/aws"
   version           = "1.4.2"
   key_name          = "${var.consul_cluster_key_name}"
   servers           = "${var.consul_cluster_servers}"
